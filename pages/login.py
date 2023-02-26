@@ -1,9 +1,10 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from pages.register import load_register_page
 
 def create_login_section_container():
     global login_section
-    login_section = Canvas(root, width=root_container_width/2, height = root_container_height,\
+    login_section = Canvas(login_page, width=root_container_width/2, height = root_container_height,\
                            bg='#ffffff', borderwidth=0, highlightthickness=0)
     login_section.grid(row=0, column=0)
     login_section.grid_propagate(False)
@@ -20,7 +21,7 @@ def load_background_image():
 def create_image_section():
     global image_section
     # Create the section container
-    image_section = Canvas(root, width=root_container_width/2, height = root_container_height, borderwidth=0, highlightthickness=0)
+    image_section = Canvas(login_page, width=root_container_width/2, height = root_container_height, borderwidth=0, highlightthickness=0)
     image_section.grid(row=0, column=1)
     image_section.grid_propagate(False)
     # Load the background image and put it in the container
@@ -61,6 +62,10 @@ def create_password_field():
     # Put the field inside the login form container
     login_form_container.create_window(0, 234, anchor=NW, window=password_field)
 
+def register():
+    login_page.destroy()
+    load_register_page(root,(root_container_width, root_container_height))
+
 def create_login_form_action_buttons():
     login_form_container.create_text(120, 285, anchor = NW, text = 'Forgot password',\
                                      font = ('Inter 12 bold'), fill='#6941c6')
@@ -69,7 +74,9 @@ def create_login_form_action_buttons():
     login_form_container.create_window(0, 329, anchor=NW, window=login_button)
     # Link to the create an account page
     login_form_container.create_text(0, 398, anchor = NW, text = "Don't have an account?", font = ('Inter 14 normal'), fill='#475467')
-    login_form_container.create_text(200, 398, anchor = NW, text = "Sign up", font = ('Inter 14 normal'), fill='#6941c6')
+    # Create sign up button
+    register_button = Button(text='Sign in', font=('Inter 12 bold'), background='#ffffff', fg='#7F56D9', activebackground="#ffffff", bd=0, cursor='hand2', command=register)
+    login_form_container.create_window(195, 396, anchor=NW, window=register_button)
     
 def create_login_form():
     create_login_form_container()
@@ -114,6 +121,11 @@ def load_login_page(root_, root_dimensions):
     root = root_
     root_container_width = root_dimensions[0]
     root_container_height = root_dimensions[1]
+    # Create the login_page_container
+    global login_page
+    login_page = Canvas(root, width=root_container_width, height=root_container_height, borderwidth=0,
+                        highlightthickness=0)
+    login_page.pack()
     # Create login page sections
     create_login_section()
     create_image_section()
