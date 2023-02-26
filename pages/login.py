@@ -1,6 +1,9 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from pages.register import load_register_page
+import tkintermapview
+from pages.main_content import load_main_content_page
+import pages.mocks.users as user_list
 
 def create_login_section_container():
     global login_section
@@ -35,6 +38,9 @@ def create_login_form_container():
                                      font=('Inter 16 normal'), fill='#475467')
 
 def create_email_field():
+    global email_input
+    global email_placeholder
+    email_placeholder = 'Enter your email'
     login_form_container.create_text(0, 118, anchor = NW, text = 'Email', font = ('Inter 14 normal'), fill='#344054')
     email_field = Canvas(login_form_container, width=360, height = 1,  borderwidth=0, highlightthickness=0)
     # Create the email input field and fill it with placeholder
@@ -49,12 +55,15 @@ def create_email_field():
     login_form_container.create_window(0, 144, anchor=NW, window=email_field)
 
 def create_password_field():
+    global password_input
+    global password_placeholder
+    password_placeholder = 'Enter your password'
     login_form_container.create_text(0, 208, anchor = NW, text = 'Password', font = ('Inter 14 normal'), fill='#344054')
     password_field = Canvas(login_form_container, width=360, height = 50, borderwidth=0, highlightthickness=0)
     # Create the password input field and fill it with placeholder
     password_input = Entry(password_field, fg = '#667085', font = ('Inter 16 normal'), border=0,\
                            highlightbackground='#d0d5dd', highlightthickness=2, highlightcolor='#d0d5dd', show = '*')
-    password_input.insert(0, 'Enter your email')
+    password_input.insert(0, password_placeholder)
     password_field.create_window(0, 0, anchor=NW, width=360, window=password_input)
     password_input.pack(ipadx=3, ipady=3)
     # Remove the placeholder on focus
@@ -66,11 +75,58 @@ def register():
     login_page.destroy()
     load_register_page(root,(root_container_width, root_container_height))
 
+def is_login_validation_approved():
+    global user_first_name, user_last_name
+    # Get login data
+    given_email = email_input.get()
+    given_password = password_input.get()
+    if (given_email == '' or given_email == email_placeholder or given_password == '' or given_password == password_placeholder):
+        login_form_container.delete("invalid_message")
+        login_form_container.create_text(0, 88, anchor = NW, text = 'Please fill in both fields.', font = ('Inter 14 bold'), fill='red', tag="invalid_message")
+        return False
+    else:
+        users_with_given_email = list(filter(lambda user: user['email'] == given_email, user_list.users))
+        if (len(users_with_given_email) == 0):
+            login_form_container.delete("invalid_message")
+            login_form_container.create_text(0, 88, anchor = NW, text = 'Incorrect email or password.', font = ('Inter 14 bold'), fill='red', tag="invalid_message")
+            return False
+        elif (users_with_given_email[0]['password'] != given_password):
+            login_form_container.delete("invalid_message")
+            login_form_container.create_text(0, 88, anchor = NW, text = 'Incorrect email or password.', font = ('Inter 14 bold'), fill='red', tag="invalid_message")
+            return False
+        user_first_name = users_with_given_email[0]['first_name']
+        user_last_name = users_with_given_email[0]['last_name']
+        return True
+            
+def login():
+    if (is_login_validation_approved()):
+        login_page.destroy()
+        # Switch to the main content page
+        load_main_content_page(root, (root_container_width, root_container_height))
+
+def mapView():
+    global map_widget
+    map_section = Canvas(root, width=root_container_width/2, height = root_container_height, borderwidth=0, highlightthickness=0)
+    map_widget = tkintermapview.TkinterMapView(width = 800, height = 800)
+    map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
+    map_widget.add_left_click_map_command(left_click_event)
+    map_section.create_window(0, 0, anchor=CENTER, window = map_widget)
+    map_section.grid(row=0, column=0)
+    map_section.grid_propagate(False)
+    map_widget.set_position(49.299171, 19.949020)
+    map_widget.set_zoom(15)
+
+def left_click_event(coordinates_tuple):
+    map_widget.set_marker(coordinates_tuple[0], coordinates_tuple[1])
+    root.update()
+    map_widget.update()
+    map_widget.fit_bounding_box((coordinates_tuple[0], coordinates_tuple[1]), (coordinates_tuple[0] -0.0000000005, coordinates_tuple[1] + 0.5))
+
 def create_login_form_action_buttons():
     login_form_container.create_text(120, 285, anchor = NW, text = 'Forgot password',\
                                      font = ('Inter 12 bold'), fill='#6941c6')
     # Create the sign in button
-    login_button = Button(text='Sign in', padx=85, font = ('Inter 14 bold'), background='#7F56D9', fg='#ffffff')
+    login_button = Button(text='Sign in', padx=85, font = ('Inter 14 bold'), background='#7F56D9', fg='#ffffff', command=login,)
     login_form_container.create_window(0, 329, anchor=NW, window=login_button)
     # Link to the create an account page
     login_form_container.create_text(0, 398, anchor = NW, text = "Don't have an account?", font = ('Inter 14 normal'), fill='#475467')
@@ -115,8 +171,11 @@ def create_login_section():
     
 def load_login_page(root_, root_dimensions):
     global root
+    global login_page
     global root_container_width
     global root_container_height
+    global textt
+    textt = ''
     # Get the root container
     root = root_
     root_container_width = root_dimensions[0]
