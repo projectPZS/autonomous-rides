@@ -19,7 +19,7 @@ users = [
     'email': 'katarzyna.kowalska@mail.pl',
     'first_name': 'Katarzyna',
     'last_name': 'Kowalska',
-    'password': 'kk'
+    'password': 'kk123'
     },
     {
     'id': 4,
