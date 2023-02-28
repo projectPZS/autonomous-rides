@@ -4,10 +4,12 @@ import pages.login as login
 import pages.settings as settings
 import pages.discount_points as discount_points
 import pages.dashboard as dashboard
+import pages.mocks.users as users
 
 def logout():
     parent.destroy()
     login.load_login_page(login.root, (login.root_container_width, login.root_container_height))
+    users.current_user = ''
 
 def create_sidebar_navigation():
     global dashboard_icon, settings_icon, discount_icon

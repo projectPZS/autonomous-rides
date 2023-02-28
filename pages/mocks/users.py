@@ -1,4 +1,4 @@
-global users
+current_user = ''
 users = [
     {
     'id': 1,

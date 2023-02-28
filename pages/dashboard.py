@@ -9,6 +9,7 @@ import pages.custom_ride as custom_ride
 import pages.rides_history as rides_history
 
 def create_dashboard_header():
+    global today
     # Create dashboard header container
     dashboard_header_container = Canvas(dashboard, width = 1030, height=100, borderwidth=0,\
                              highlightthickness=0)
