@@ -33,6 +33,7 @@ def create_dashboard_header():
     # Put the header inside the dashboard container
     dashboard.create_window(0, 0, anchor=NW, window=dashboard_header_container)
 
+
 def create_rides_history_card():
     # Create the rides history card
     rides_history_card_container = Canvas(dashboard_cards_container, width = 565, height=175, borderwidth=1,\
@@ -51,6 +52,8 @@ def create_rides_history_card():
     rides_history_card_container.create_window(25, 130, anchor=NW, window=rides_history_card_button)
     # Put the card inside the dashboard 
     dashboard_cards_container.create_window(0, 50, anchor=NW, window=rides_history_card_container)
+
+
 
 def create_custom_ride_card():
     global dashboard_cards_container
