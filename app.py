@@ -1,6 +1,7 @@
 from tkinter import *
 from pages.login import load_login_page
 
+
 def set_root_dimensions():
     global root_container_width
     global root_container_height
