@@ -94,6 +94,7 @@ def is_login_validation_approved():
             login_form_container.delete("invalid_message")
             login_form_container.create_text(0, 88, anchor = NW, text = 'Incorrect email or password.', font = ('Inter 14 bold'), fill='red', tag="invalid_message")
             return False
+        user_list.current_user = users_with_given_email[0]
         user_first_name = users_with_given_email[0]['first_name']
         user_last_name = users_with_given_email[0]['last_name']
         return True
@@ -104,29 +105,11 @@ def login():
         # Switch to the main content page
         load_main_content_page(root, (root_container_width, root_container_height))
 
-def mapView():
-    global map_widget
-    map_section = Canvas(root, width=root_container_width/2, height = root_container_height, borderwidth=0, highlightthickness=0)
-    map_widget = tkintermapview.TkinterMapView(width = 800, height = 800)
-    map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
-    map_widget.add_left_click_map_command(left_click_event)
-    map_section.create_window(0, 0, anchor=CENTER, window = map_widget)
-    map_section.grid(row=0, column=0)
-    map_section.grid_propagate(False)
-    map_widget.set_position(49.299171, 19.949020)
-    map_widget.set_zoom(15)
-
-def left_click_event(coordinates_tuple):
-    map_widget.set_marker(coordinates_tuple[0], coordinates_tuple[1])
-    root.update()
-    map_widget.update()
-    map_widget.fit_bounding_box((coordinates_tuple[0], coordinates_tuple[1]), (coordinates_tuple[0] -0.0000000005, coordinates_tuple[1] + 0.5))
-
 def create_login_form_action_buttons():
     login_form_container.create_text(120, 285, anchor = NW, text = 'Forgot password',\
                                      font = ('Inter 12 bold'), fill='#6941c6')
     # Create the sign in button
-    login_button = Button(text='Sign in', padx=85, font = ('Inter 14 bold'), background='#7F56D9', fg='#ffffff', command=login,)
+    login_button = Button(text='Sign in', padx=85, font = ('Inter 14 bold'), background='#7F56D9', fg='#ffffff', command=login, cursor = 'hand2')
     login_form_container.create_window(0, 329, anchor=NW, window=login_button)
     # Link to the create an account page
     login_form_container.create_text(0, 398, anchor = NW, text = "Don't have an account?", font = ('Inter 14 normal'), fill='#475467')
