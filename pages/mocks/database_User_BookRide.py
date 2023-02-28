@@ -26,7 +26,7 @@ new_users = [
 c.executemany("INSERT INTO User (email, first_name, last_name, password, discount_points) VALUES (?, ?, ?, ?, ?)", new_users)
 
 c.execute('''CREATE TABLE IF NOT EXISTS BookRide
-             (user_id INTEGER  FOREIGN KEY REFERENCES users(id), 
+             (user_id INTEGER  FOREIGN KEY REFERENCES User(id), 
              type TEXT NOT NULL, 
              departure_address TEXT NOT NULL, 
              destination_address TEXT NOT NULL,
