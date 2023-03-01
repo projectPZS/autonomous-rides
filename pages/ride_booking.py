@@ -6,9 +6,13 @@ import pages.dashboard as dashboard
 import pages.previous_view as previous
 import pages.custom_ride as custom_ride
 import pages.mocks.users as users
+from PIL import ImageTk, Image
 
 def slice_string_to_first_n_words(s, n):
-    return " ".join(s.split()[:n])[:-1]
+    s = " ".join(s.split()[:n])
+    if (s[-1] == ',' or s[-1] == ' '):
+        return s[:-1]
+    return s
 
 def finalize_ride_booking(booked_ride):
     booked_ride['departure_address'] = slice_string_to_first_n_words(booked_ride['departure_address'], 2)
