@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from pages.register import load_register_page
+import pages.register as registration
 import tkintermapview
 from pages.main_content import load_main_content_page
 import pages.mocks.users as user_list
@@ -73,7 +73,7 @@ def create_password_field():
 
 def register():
     login_page.destroy()
-    load_register_page(root,(root_container_width, root_container_height))
+    registration.load_register_page(root,(root_container_width, root_container_height))
 
 def is_login_validation_approved():
     global user_first_name, user_last_name
@@ -114,7 +114,7 @@ def create_login_form_action_buttons():
     # Link to the create an account page
     login_form_container.create_text(0, 398, anchor = NW, text = "Don't have an account?", font = ('Inter 14 normal'), fill='#475467')
     # Create sign up button
-    register_button = Button(text='Sign in', font=('Inter 12 bold'), background='#ffffff', fg='#7F56D9', activebackground="#ffffff", bd=0, cursor='hand2', command=register)
+    register_button = Button(text='Sign up', font=('Inter 12 bold'), background='#ffffff', fg='#7F56D9', activebackground="#ffffff", bd=0, cursor='hand2', command=register)
     login_form_container.create_window(195, 396, anchor=NW, window=register_button)
     
 def create_login_form():

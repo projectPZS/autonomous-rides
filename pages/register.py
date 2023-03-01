@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import pages.login as login
+import pages.mocks.users as users
 import re
 
 
@@ -14,7 +15,7 @@ def create_register_section_container():
 
 def load_background_image():
     # Load the image
-    background_image_ref = Image.open('assets/images/login-background.jpg')
+    background_image_ref = Image.open('assets/images/zakopane.jpg')
     background_image = ImageTk.PhotoImage(background_image_ref)
     # Put the image in the image section
     image_wrapper = Label(image_section, image=background_image, width=root_container_width / 2,
@@ -153,6 +154,10 @@ def validation():
         register_form_container.delete("invalid_message")
         register_form_container.create_text(0, 33, anchor=NW, text='Invalid e-mail adress', font=('Inter 10 bold'),
                                           fill='red', tag="invalid_message")
+    elif email_already_exists_in_DB(email):
+        register_form_container.delete("invalid_message")
+        register_form_container.create_text(0, 33, anchor=NW, text='Email already exists in DB.', font=('Inter 10 bold'),
+                                          fill='red', tag="invalid_message")
     elif check.get()==0:
         register_form_container.delete("invalid_message")
         register_form_container.create_text(0, 33, anchor=NW, text='Please accept Terms & Conditions', font=('Inter 10 bold'),
@@ -161,6 +166,23 @@ def validation():
         register_form_container.delete("invalid_message")
         register_form_container.create_text(0, 33, anchor=NW, text='Registration successful', font=('Inter 10 bold'),
                                             fill='green', tag="invalid_message")
+        new_user = {
+            'id': users.users[len(users.users) - 1]['id'] + 1,
+            'first_name': name,
+            'last_name': lname,
+            'email': email,
+            'password': password,
+            'points_amount': 0
+        }
+        users.users.append(new_user)
+        register_page.destroy()
+        login.load_login_page(root, (root_container_width, root_container_height))
+def email_already_exists_in_DB(email):
+    exists = False
+    for user in users.users:
+        if user['email'] == email:
+            exists = True
+    return exists
 
 def back():
     register_page.destroy()
