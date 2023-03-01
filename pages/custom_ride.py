@@ -6,6 +6,7 @@ from PIL import ImageTk, Image
 import tkintermapview
 import openrouteservice
 import numpy as np
+import pages.mocks.users as users
 
 def create_departure_field():
     global departure_input
@@ -72,14 +73,37 @@ def validate_custom_ride_form():
     global destination_point
     global departure_field_value
     global destination_field_value
+    global departure_time
+    global booking_info 
     departure_field_value = departure_input.get()
     destination_field_value = departure_input.get()
-    if (departure_point == '' or destination_point == '' or departure_field_value == '' or destination_field_value == '' or hour_input.get() == '' or hour_input.get() == ''):
+    if (departure_point == '' or destination_point == '' or departure_field_value == '' or destination_field_value == '' or hour_input.get() == '' or minutes_input.get() == ''):
         custom_rides_section.create_text(30, 70, anchor = NW, text = "Please fill all the fields and select 2 points on the map.", fill='red', font=('Inter 14'), tag="custom_ride_warning")
         return
+    departure_time = f"{hour_input.get()}:{minutes_input.get()}"
     custom_rides_section.delete('custom_ride_warning')
     previous_view.was_custom_ride_booked = True
-    ride_booking.finalize_booking()
+    booking_info =  {
+        'user_id': users.current_user['id'],
+        'type': 'custom',
+        'departure_address': departure_field_value,
+        'destination_address': destination_field_value,
+        'travel_distance': travel_distance,
+        'departure_date': dashboard.today,
+        'departure_time': departure_time,
+        'price': travel_cost,
+        'payment_date': dashboard.today,
+        'rate': 5.0,
+        'is_favourite': False,
+        'is_deleted': False,
+        'car': 'Tesla',
+        'is_route_of_the_day': False
+    }
+    
+    ride_booking.finalize_ride_booking(booking_info)
+
+def finalize_booking():
+    ride_booking.finalize_ride_booking(booking_info)
 
 def create_donation_toggle():
     global donation_toggle_icon

@@ -35,21 +35,21 @@ def create_dashboard_redirect_buttons():
     dashboard_icon_ref = Image.open('assets/icons/chart-dashboard=redirect.png')
     dashboard_icon = ImageTk.PhotoImage(dashboard_icon_ref)
     # Create the logout icon button
-    dashboard_button = Button(image=dashboard_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=dashboard.create_dashboard_cards)
+    dashboard_button = Button(image=dashboard_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=dashboard.create_dashboard_cards, cursor='hand2')
     sidebar.create_window(60, 150, anchor = NW, window=dashboard_button)
     # Create the dashboard text button
-    dashboard_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Dashboard", foreground='#101828', font=('Inter 12 bold'), command=dashboard.create_dashboard_cards)
+    dashboard_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Dashboard", foreground='#101828', font=('Inter 12 bold'), command=dashboard.create_dashboard_cards, cursor='hand2')
     sidebar.create_window(110, 158, anchor = NW, window=dashboard_text_button)
 
 def create_discount_points_section_buttons():
     global discount_icon
     discount_icon_ref = Image.open('assets/icons/discount-card.png')
     discount_icon = ImageTk.PhotoImage(discount_icon_ref)
-    discount_button = Button(image=discount_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=discount_points.load_discount_points_section)
+    discount_button = Button(image=discount_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=discount_points.load_discount_points_section, cursor='hand2')
     sidebar.create_text(110, 218, anchor = NW, text='Discound Points', fill='#101828', font=('Inter 12 bold'))
     sidebar.create_window(60, 208, anchor = NW, window=discount_button)
     # Create the logout text button
-    sidebar_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Discount Points", foreground='#101828', font=('Inter 12 bold'), command=discount_points.load_discount_points_section)
+    sidebar_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Discount Points", foreground='#101828', font=('Inter 12 bold'), command=discount_points.load_discount_points_section, cursor='hand2')
     sidebar.create_window(110, 218, anchor = NW, window=sidebar_text_button)
 
 def create_settings_buttons():
@@ -57,10 +57,10 @@ def create_settings_buttons():
     settings_icon_ref = Image.open('assets/icons/settings.png')
     settings_icon = ImageTk.PhotoImage(settings_icon_ref)
     sidebar.create_text(110, 265, anchor = NW, text='Settings', fill='#101828', font=('Inter 12 bold'))
-    settings_button = Button(image=settings_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=settings.load_settings)
+    settings_button = Button(image=settings_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=settings.load_settings, cursor='hand2')
     sidebar.create_window(65, 263, anchor = NW, window=settings_button)
     # Create the logout text button
-    settings_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Settings", foreground='#101828', font=('Inter 12 bold'), command=settings.load_settings)
+    settings_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Settings", foreground='#101828', font=('Inter 12 bold'), command=settings.load_settings, cursor='hand2')
     sidebar.create_window(110, 265, anchor = NW, window=settings_text_button)
 
 def create_logout_buttons():
@@ -68,10 +68,10 @@ def create_logout_buttons():
     # Create the logout icon button
     logout_icon_ref = Image.open('assets/icons/logout.png')
     logout_icon = ImageTk.PhotoImage(logout_icon_ref)
-    logout_button = Button(image=logout_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=logout)
+    logout_button = Button(image=logout_icon, background='#d2e5f7', borderwidth=0, highlightthickness=0, command=logout, cursor='hand2')
     sidebar.create_window(25, 650, anchor = NW, window=logout_button)
     # Create the logout text button
-    logout_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Log Out", foreground='#101828', font=('Inter 12 bold'), command=logout)
+    logout_text_button = Button(background='#d2e5f7', borderwidth=0, highlightthickness=0, text="Log Out", foreground='#101828', font=('Inter 12 bold'), command=logout, cursor='hand2')
     sidebar.create_window(70, 654, anchor = NW, window=logout_text_button)
 
 def load_sidebar(parent_, parent_dimensions):
