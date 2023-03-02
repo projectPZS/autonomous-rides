@@ -10,7 +10,7 @@ def book_from_chrancowki():
     global ride_price
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': 'Chrańcówki 35',
         'destination_address': 'Kasprowy Wierch',
         'travel_distance': 25,
@@ -25,13 +25,13 @@ def book_from_chrancowki():
         'is_route_of_the_day': False
     }
     booking_info['price'] = 5 if is_ride_of_the_day else 50
-    kolej_kasprowy_section.destroy()
+    morskie_oko_section.destroy()
     booking.finalize_ride_booking(booking_info)
 
 def book_from_maja():
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': '3 Maja',
         'destination_address': 'Kasprowy Wierch',
         'travel_distance': 30,
@@ -62,7 +62,7 @@ def load_morskie_oko():
     morskie_oko_section.create_text(400, 0, anchor=NW, text="Morskie Oko", fill='#101828',
                                          font=('Inter 20 bold'))
     if (datetime.now().weekday() == 6):
-        morskie_oko_section.create_text(80, 0, anchor=NW, text="This is the ride of the day! Get it for 5zł", fill='#2596be',
+        morskie_oko_section.create_text(60, 0, anchor=NW, text="This is the ride of the day! Get it for 5zł", fill='#2596be',
                                        font=('Inter 12 bold'))
     dashboard.dashboard.create_window(0, 125, anchor=NW, window=morskie_oko_section)
     previous_view.previous_view = morskie_oko_section

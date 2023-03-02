@@ -76,7 +76,7 @@ def validate_custom_ride_form():
     global departure_time
     global booking_info 
     departure_field_value = departure_input.get()
-    destination_field_value = departure_input.get()
+    destination_field_value = destination_input.get()
     if (departure_point == '' or destination_point == '' or departure_field_value == '' or destination_field_value == '' or hour_input.get() == '' or minutes_input.get() == ''):
         custom_rides_section.create_text(30, 70, anchor = NW, text = "Please fill all the fields and select 2 points on the map.", fill='red', font=('Inter 14'), tag="custom_ride_warning")
         return

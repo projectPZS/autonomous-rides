@@ -11,7 +11,7 @@ def book_from_chrancowki():
     global ride_price
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': 'Chrańcówki 35',
         'destination_address': 'Wielka Krokiew',
         'travel_distance': 40,
@@ -32,7 +32,7 @@ def book_from_chrancowki():
 def book_from_maja():
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': '3 Maja',
         'destination_address': 'Kasprowy Wierch',
         'travel_distance': 37,
@@ -63,7 +63,7 @@ def load_wielka_krokiew():
     wielka_krokiew_section.create_text(375, 0, anchor=NW, text="Wielka Krokiew", fill='#101828',
                                          font=('Inter 20 bold'))
     if (datetime.now().weekday() == 5):
-        wielka_krokiew_section.create_text(80, 0, anchor=NW, text="This is the ride of the day! Get it for 5zł", fill='#2596be',
+        wielka_krokiew_section.create_text(60, 0, anchor=NW, text="This is the ride of the day! Get it for 5zł", fill='#2596be',
                                        font=('Inter 12 bold'))
         is_ride_of_the_day = True
     dashboard.dashboard.create_window(0, 125, anchor=NW, window=wielka_krokiew_section)

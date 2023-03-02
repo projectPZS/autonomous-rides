@@ -11,7 +11,7 @@ def load_rides_history():
     if (previous_view.previous_view != ''):
         previous_view.previous_view.destroy()
     rides_history_section = Canvas(dashboard.dashboard, width=1000, height = 660, borderwidth=0, highlightthickness=0, background="#ffffff")
-    rides_history_section.create_text(0, 10, anchor = NW, text = "Rides history", fill='#101828', font=('Inter 20 bold'))
+    rides_history_section.create_text(0, 10, anchor = NW, text = "Rides explorer", fill='#101828', font=('Inter 20 bold'))
     hourglass_icon_ref = Image.open('assets/icons/icon_hourglass.png')
     hourglass_icon = ImageTk.PhotoImage(hourglass_icon_ref)
     rides_history_section.create_image(180, 0, anchor = NW, image=hourglass_icon)

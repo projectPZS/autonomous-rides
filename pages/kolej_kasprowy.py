@@ -8,9 +8,10 @@ import pages.ride_booking as booking
 
 def book_from_chrancowki():
     global ride_price
+    global kolej_kasprowy_section
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': 'Chrańcówki 35',
         'destination_address': 'Kasprowy Wierch',
         'travel_distance': 14,
@@ -25,13 +26,15 @@ def book_from_chrancowki():
         'is_route_of_the_day': False
     }
     booking_info['price'] = 5 if is_ride_of_the_day else 28
-    kolej_kasprowy_section.destroy()
+    previous_view.destroy()
     booking.finalize_ride_booking(booking_info)
 
 def book_from_maja():
+    global kolej_kasprowy_section
+    kolej_kasprowy_section = kolej_kasprowy_section
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': '3 Maja',
         'destination_address': 'Kasprowy Wierch',
         'travel_distance': 13,
@@ -46,7 +49,7 @@ def book_from_maja():
         'is_route_of_the_day': False
     }
     booking_info['price'] = 5 if is_ride_of_the_day else 26
-    kolej_kasprowy_section.destroy()
+    previous_view.destroy()
     booking.finalize_ride_booking(booking_info)
 
 def load_kolej_kasprowy():
@@ -61,8 +64,8 @@ def load_kolej_kasprowy():
                                       background="#ffffff")
     kolej_kasprowy_section.create_text(275, 0, anchor=NW, text="Kolej Kasprowy Wierch Kuźnice", fill='#101828',
                                          font=('Inter 20 bold'))
-    if (datetime.now().weekday() == 3):
-        kolej_kasprowy_section.create_text(80, 0, anchor=NW, text="This is the ride of the day! Get it for 5zł", fill='#2596be',
+    if (datetime.now().weekday() == 4):
+        kolej_kasprowy_section.create_text(60, 0, anchor=NW, text="This is the ride of the day! Get it for 5zł", fill='#2596be',
                                        font=('Inter 12 bold'))
         is_ride_of_the_day = True
     dashboard.dashboard.create_window(0, 125, anchor=NW, window=kolej_kasprowy_section)

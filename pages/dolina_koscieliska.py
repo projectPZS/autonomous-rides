@@ -10,7 +10,7 @@ def book_from_chrancowki():
     global ride_price
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': 'Chrańcówki 35',
         'destination_address': 'Dolina Kościeliska',
         'travel_distance': 16,
@@ -31,7 +31,7 @@ def book_from_chrancowki():
 def book_from_maja():
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': '3 Maja',
         'destination_address': 'Dolina Filipka',
         'travel_distance': 19,
