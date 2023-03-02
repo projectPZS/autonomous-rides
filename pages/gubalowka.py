@@ -10,7 +10,7 @@ def book_from_chrancowki():
     global ride_price
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': 'Chrańcówki 35',
         'destination_address': 'Gubalowka',
         'travel_distance': 4,
@@ -31,7 +31,7 @@ def book_from_chrancowki():
 def book_from_maja():
     booking_info = {
         'user_id': users.current_user['id'],
-        'type': 'custom',
+        'type': 'touristic',
         'departure_address': '3 Maja',
         'destination_address': 'Gubalowka',
         'travel_distance': 9,
