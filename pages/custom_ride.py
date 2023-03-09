@@ -54,7 +54,7 @@ def load_custom_rides_section():
     # Create the custom rides section with its main texts
     custom_rides_section = Canvas(dashboard.dashboard, width=1030, height = 680, borderwidth=0, highlightthickness=0, background="#ffffff")
     custom_rides_section.create_text(30, 6, anchor = NW, text = "Custom ride", fill='#101828', font=('Inter 20 bold'))
-    custom_rides_section.create_text(30, 40, anchor = NW, text = "Select 2 points on map by right click menu 'add marker' option.", fill='#101828', font=('Inter 10'))
+    custom_rides_section.create_text(30, 40, anchor = NW, text = "Select 2 points by clicking on the map.", fill='#101828', font=('Inter 10'))
     dashboard.dashboard.create_window(0, 100, anchor = NW, window = custom_rides_section)
     previous_view.previous_view = custom_rides_section
     # Place a google maps map in the section
