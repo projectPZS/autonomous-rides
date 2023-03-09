@@ -172,7 +172,7 @@ def validation():
             'last_name': lname,
             'email': email,
             'password': password,
-            'points_amount': 0
+            'discount_points': 0
         }
         users.users.append(new_user)
         register_page.destroy()
