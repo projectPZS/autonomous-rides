@@ -63,7 +63,10 @@ def load_custom_rides_section():
     create_departure_field()
     create_donation_toggle()
     book_ride_button = Button(padx= 10, text = "Book a ride", cursor='hand2', font = ('Inter 14 bold'), background='#032aab', fg='#ffffff', command = validate_custom_ride_form)
+    reset_route_choice_button = Button(padx= 10, text = "Reset route choice", cursor='hand2', font = ('Inter 14 bold'), background='grey', fg='#ffffff', command = delete_markers)
+
     create_time_picker()
+    custom_rides_section.create_window(550, 50, window=reset_route_choice_button, anchor=NW)
     custom_rides_section.create_window(750, 550, window=book_ride_button, anchor=NW)
 
 departure_field_value = ''
@@ -151,8 +154,7 @@ def place_a_map():
     map_widget = tkintermapview.TkinterMapView(width = 600, height = 450)
     map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
     # Add command menu that appears on the right click on the map
-    map_widget.add_right_click_menu_command(label="Add marker", command = set_route_marker_point, pass_coords=True)
-    map_widget.add_right_click_menu_command(label="Delete markers", command = delete_markers, pass_coords=True)
+    map_widget.add_left_click_map_command(set_route_marker_point)
     # Place the map in the custom rides section
     custom_rides_section.create_window(30, 100, anchor=NW, window = map_widget)
     custom_rides_section.grid_propagate(False)
@@ -160,9 +162,12 @@ def place_a_map():
     map_widget.set_position(49.299171, 19.949020)
     map_widget.set_zoom(15)
 
-def delete_markers(coordinates_tuple):
+def delete_markers():
      global departure_point
      global destination_point
+     custom_rides_section.delete("travel_distance")
+     custom_rides_section.delete("travel_time")
+     custom_rides_section.delete("travel_cost")
      map_widget.delete_all_marker()
      map_widget.delete_all_path()
      # Clear the departure and destination input fields
@@ -241,11 +246,11 @@ def set_route_marker_point(coordinates_tuple):
         departure_city = departure_address.city
         departure_housenumber = departure_address.housenumber
         get_departure_city_and_housenumber_text()
-        departure_input.insert(0, f"{departure_address.street}{departure_housenumber}{departure_city}, {departure_address.postal}")
+        departure_input.insert(0, f"{departure_address.street}{departure_housenumber}{departure_city}, {departure_address.postal}".replace("None", ''))
         set_map_zoom_to_fit_points()
         destination_address = tkintermapview.convert_coordinates_to_address(destination_point[0], destination_point[1])
         get_destination_city_and_housenumber_text()
-        destination_input.insert(0, f"{destination_address.street}{destination_housenumber}{destination_city}, {destination_address.postal}")
+        destination_input.insert(0, f"{destination_address.street}{destination_housenumber}{destination_city}, {destination_address.postal}".replace("None", ''))
         # Display ride booking info
         get_travel_duration_and_distance_info()
         display_ride_booking_info(travel_distance, travel_time, travel_cost)
